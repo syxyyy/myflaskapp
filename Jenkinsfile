@@ -18,7 +18,7 @@ pipeline {
         }
         stage('Checkout') {
             steps {
-                git url: 'https://github.com/syxyyy/myflaskapp.git', branch: 'main', credentialsId: 'github-token'
+                checkout scm
             }
         }
         stage('Fix pip') {
@@ -48,7 +48,6 @@ pipeline {
         stage('Test') {
             steps {
                 bat """
-                    ${PYTHON_PATH} -m pip install pytest
                     ${PYTHON_PATH} -m pytest --cov=app tests/ --cov-report=html
                 """
             }
